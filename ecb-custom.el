@@ -13,11 +13,11 @@
 	(quote mouse-1--mouse-2)))
 ;;http://truongtx.me/2013/03/10/ecb-emacs-code-browser/
 ;; 设置四个窗口的布局，默认是都放在左边，可以自己更改
-;;(setq ecb-layout-name "leftright2")
+(setq ecb-layout-name "left6")
 ;; 在目录窗口显示文件
 (setq ecb-show-sources-in-directories-buffer 'always)
 ;; 设置compile窗口的高度
-;;(setq ecb-compile-window-height 12)
+(setq ecb-compile-window-height 8)
 ;; 设置窗口的宽度，15%
 (setq ecb-windows-width 0.15)
 
