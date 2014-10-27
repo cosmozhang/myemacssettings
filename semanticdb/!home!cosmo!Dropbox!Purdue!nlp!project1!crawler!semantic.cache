@@ -1,0 +1,18 @@
+;; Object crawler/
+;; SEMANTICDB Tags save file
+(semanticdb-project-database-file "crawler/"
+  :tables (list 
+   (semanticdb-table "cwler.py"
+    :major-mode 'python-mode
+    :tags nil
+    :file "cwler.py"
+    :pointmax 532
+    :fsize 516
+    :lastmodtime '(21582 32877)
+    :unmatched-syntax 'nil
+    )
+   )
+  :file "!home!cosmo!Dropbox!Purdue!nlp!project1!crawler!semantic.cache"
+  :semantic-tag-version "2.0"
+  :semanticdb-version "2.0"
+  )

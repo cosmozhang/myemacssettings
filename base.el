@@ -25,6 +25,11 @@
 ;full screen
 (global-set-key [f11] 'toggle-fullscreen)
 
+;python mode
+(load-file"~/.emacs.d/python-mode.el")
+(autoload 'python-mode "python-mode" "Python Mode." t)
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+(add-to-list 'interpreter-mode-alist '("python" . python-mode))
 
 ;;显示时间
 (display-time)
