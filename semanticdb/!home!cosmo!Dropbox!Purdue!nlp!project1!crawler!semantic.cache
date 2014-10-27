@@ -6,7 +6,7 @@
     :major-mode 'python-mode
     :tags nil
     :file "cwler.py"
-    :pointmax 532
+    :pointmax 517
     :fsize 516
     :lastmodtime '(21582 32877)
     :unmatched-syntax 'nil

@@ -81,7 +81,7 @@
 ;; 代码折叠
 ;; 用semantic实现
 (require 'semantic-tag-folding nil 'noerror)
-(global-semantic-tag-folding-mode -1) ;; 开启代码折叠模式
+(global-semantic-tag-folding-mode -1) ;; 开启代码折叠模式(manual)
 (global-set-key (kbd "C-?") 'global-semantic-tag-folding-mode)  ;; 绑定C-?开启关闭代码折叠模式
 ;; 折叠代码块，绑定到C--
 (define-key semantic-tag-folding-mode-map (kbd "C--") 'semantic-tag-folding-fold-block)

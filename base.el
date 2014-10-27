@@ -26,10 +26,15 @@
 (global-set-key [f11] 'toggle-fullscreen)
 
 ;python mode
-(load-file"~/.emacs.d/python-mode.el")
-(autoload 'python-mode "python-mode" "Python Mode." t)
-(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
-(add-to-list 'interpreter-mode-alist '("python" . python-mode))
+(require 'python-mode)
+(setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))  ;;自动关联文件
+(setq interpreter-mode-alist (cons '("python" . python-mode)
+                                   interpreter-mode-alist))
+(autoload 'python-mode "python-mode" "Python editing mode." t)
+;(load-file"~/.emacs.d/python-mode.el")
+;(autoload 'python-mode "python-mode" "Python Mode." t)
+;(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+;(add-to-list 'interpreter-mode-alist '("python" . python-mode))
 
 ;;显示时间
 (display-time)
@@ -47,7 +52,7 @@
 (scroll-bar-mode -1);隐藏滚动条
 
 (setq-default cursor-type 'bar);设置光标为竖线
-;(setq-default cursor-type 'box);设置光标为方块 
+;(setq-default cursor-type 'box);设置光标为方块
 
 (setq x-select-enable-clipboard t);external粘贴板。
 
@@ -63,7 +68,7 @@
 
 ;(setq initial-scratch-message ""); *scratch* buffer的提示信息 set as None
 
-(global-linum-mode 1) ; always show line numbers                            
+(global-linum-mode 1) ; always show line numbers
 (setq linum-format "%d| ")  ;set format
 ;(setq column-number-mode t) ;显示列号。
 
@@ -137,3 +142,27 @@
 
 (setq user-full-name "Xiao (Cosmo) Zhang")
 (setq user-mail-address "cosmozhang1988@gmail.com");设置有用的个人信息。这在很多地方有用。
+
+;;comment
+(defun comment-dwim-line (&optional arg)
+  (interactive "*P")
+  (comment-normalize-vars)
+  (if (and (not (region-active-p)) (not (looking-at "[ \t]*$")))
+      (comment-or-uncomment-region (line-beginning-position) (line-end-position))
+    (comment-dwim arg)))
+(global-set-key "\M-;" 'comment-dwim-line)
+
+;; GDB settings
+(setq gdb-many-windows t)
+
+(setq dired-recursive-copies 'top)
+(setq dired-recursive-deletes 'top)
+
+;; delete trailing space
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+
+(autoload 'autopair-global-mode "autopair" nil t)
+(autopair-global-mode)
+(add-hook 'lisp-mode-hook #'(lambda () (setq autopair-dont-activate t)))
+
+
