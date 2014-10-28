@@ -25,16 +25,6 @@
 ;full screen
 (global-set-key [f11] 'toggle-fullscreen)
 
-;python mode
-(require 'python-mode)
-(setq auto-mode-alist (cons '("\\.py$" . python-mode) auto-mode-alist))  ;;自动关联文件
-(setq interpreter-mode-alist (cons '("python" . python-mode)
-                                   interpreter-mode-alist))
-(autoload 'python-mode "python-mode" "Python editing mode." t)
-;(load-file"~/.emacs.d/python-mode.el")
-;(autoload 'python-mode "python-mode" "Python Mode." t)
-;(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
-;(add-to-list 'interpreter-mode-alist '("python" . python-mode))
 
 ;;显示时间
 (display-time)
@@ -159,10 +149,16 @@
 (setq dired-recursive-deletes 'top)
 
 ;; delete trailing space
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
+;(add-hook 'before-save-hook 'delete-trailing-whitespace)
 
+;aotupair
 (autoload 'autopair-global-mode "autopair" nil t)
 (autopair-global-mode)
 (add-hook 'lisp-mode-hook #'(lambda () (setq autopair-dont-activate t)))
+
+;Autocomplete
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(ac-config-default)
 
 

@@ -4,11 +4,15 @@
   :tables (list 
    (semanticdb-table "cwler.py"
     :major-mode 'python-mode
-    :tags nil
+    :tags 
+        '( ("urllib2" include nil nil [1 15])
+            ("bs4" include nil nil [16 26])
+            ("main" function nil nil [39 571])
+            ("if" code nil nil [573 611]))          
     :file "cwler.py"
-    :pointmax 517
-    :fsize 516
-    :lastmodtime '(21582 32877)
+    :pointmax 611
+    :fsize 610
+    :lastmodtime '(21582 54713)
     :unmatched-syntax 'nil
     )
    )
