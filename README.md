@@ -12,7 +12,7 @@ $ mv .emacs .emacs.backup && mv .emacs.d .emacs.d.backup
 After that, checkout this configuration by issuing the following commands.
 
 ```
-$ git clone --recursive https://github.com/benquike/emacs.d ~/.emacs.d
+$ git clone --recursive https://github.com/cosmozhang/myemacssettings ~/.emacs.d
 ```
 ```
 $ git submodule update --init
