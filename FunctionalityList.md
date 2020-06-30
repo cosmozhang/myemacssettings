@@ -3,7 +3,7 @@
 * [Keyfreq](https://github.com/dacap/keyfreq)
 	* A plugin used to collect your key stroke statistics,
 	from which you could see which keys you use mostly and
-	thus decide how toÅ@improve your edit efficiency by
+	thus decide how to improve your edit efficiency by
 	modifying your keybindings.
 
 * [ggtags](https://github.com/leoliu/ggtags)
