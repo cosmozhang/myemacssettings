@@ -1,131 +1,9 @@
-(let ((minver "24"))
-  (when (version<= emacs-version minver)
-    (message "Your Emacs is a little bit old, some functionalities might not work, please use the latest version")
-  )
- )
-
-(require 'cl)
-;; Proxy server setting
-;; (setq url-proxy-services '(("no_proxy" . "default_gateway")
-;;                            ("http" . "HTTP_PROXY_SERVER:PORT")
-;;                            ("https" . "HTTPS_PROXY_SERVER:PORT")))
-
-
-; plist-to-alist
-; to use color-theme
-(defun plist-to-alist (the-plist)
-  (defun get-tuple-from-plist (the-plist)
-    (when the-plist
-      (cons (car the-plist) (cadr the-plist))))
-
-  (let ((alist '()))
-    (while the-plist
-      (add-to-list 'alist (get-tuple-from-plist the-plist))
-      (setq the-plist (cddr the-plist)))
-  alist))
-
-(defun load-files-wildcards (wildcards)
-  "Load all the files specified by wildcards"
-  (let ((all-files (file-expand-wildcards wildcards t)))
-    (while all-files
-      (load (car all-files))
-      (setq all-files (cdr all-files))
-    )
-  )
-)
-
-(let ((load-dir (file-name-directory load-file-name)))
-  (load-files-wildcards (format "%s/*-init.el" load-dir))
-  (load-files-wildcards (format "%s/**/dir-init.el" load-dir))
-)
-
-;;; package setup
-;;; refer to http://emacswiki.org/emacs/ELPA
-
-(require 'package)
-;;; setup the archives
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                         ("marmalade" . "https://marmalade-repo.org/packages/")
-                         ("melpa" . "http://melpa.org/packages/")))
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/") t); Org-mode's repository
-
-;;; org-trello's repository
-(add-to-list 'package-archives '("melpa-stable" . "http://melpa-stable.milkbox.net/packages") t)
-
-(package-initialize)
-
-(defvar my-packages-to-install
-  '(ggtags company yasnippet ack org-trello helm org-octopress
-	   undo-tree
-	   cygwin-mount
-	   magit
-	   )
-  "The packages Emacs will try to install when it starts up.")
-
-(defun my-packages-installed-p ()
-  (loop for p in my-packages-to-install
-        when (not (package-installed-p p)) do (return nil)
-        finally (return t))
-)
-
-(unless (my-packages-installed-p)
-  ;; check for new packages (package versions)
-  (package-refresh-contents)
-
-  (message "Emacs is checking whether the packages are installed...")
-  (dolist (p my-packages-to-install)
-    (when (not (package-installed-p p))
-      (package-install p))
-  )
-  (message "Checking done"))
-
-
-(let ((load-dir (file-name-directory load-file-name)))
-  (load-files-wildcards (format "%s/**/*-init.el" load-dir))
-)
-
-(defun my-c-mode-common-hook()
-  (whitespace-mode t)
-  (linum-mode t)
-  (c-set-style "python"))
-
-(add-hook 'c-mode-common-hook 'my-c-mode-common-hook)
-
-;; show the bookmarks in the welcome page
-;; TODO: collect the directories the user
-;; accesses frequently and show them
-(setq inhibit-splash-screen t)
-(require 'bookmark)
-(bookmark-bmenu-list)
-(switch-to-buffer "*Bookmark List*")
-
+(add-to-list 'load-path "~/.emacs.d/lisp")
 
 ;; color theme setting
 (require 'color-theme)
 (load-file "~/.emacs.d/.emacs-color-theme")
 (my-color-theme)
-
-;recent closed, changed
-(require 'session)
-(add-hook 'after-init-hook 'session-initialize)
-
-;按f11让Emacs进入全屏显示
-(defun toggle-fullscreen ()
-  "Toggle full screen on X11"
-  (interactive)
-  (when (eq window-system 'x)
-    (set-frame-parameter
-     nil 'fullscreen
-     (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
-)
-;full screen
-(global-set-key [f11] 'toggle-fullscreen)
-
-
-;autopair
-(autoload 'autopair-global-mode "autopair" nil t)
-(autopair-global-mode)
-(add-hook 'lisp-mode-hook #'(lambda () (setq autopair-dont-activate t)))
 
 ;comment
 (defun comment-dwim-line (&optional arg)
@@ -137,15 +15,12 @@
 ;block comment "alt+;"
 (global-set-key "\M-;" 'comment-dwim-line)
 
-
 ;;显示时间
 (display-time)
 ;;时间为24小时制
 (setq display-time-24hr-format t)
 ;;时间显示包括日期和具体时间
 (setq display-time-day-and-date t)
-;;时间栏旁边启动邮件设置
-;(setq display-time-use-mail-icon t)
 ;;时间的变化频率
 (setq display-time-interval 10)
 
@@ -157,12 +32,6 @@
 
 ;关闭烦人的出错时的提示声
 (setq visible-bell t)
-
-;隐藏工具栏
-(tool-bar-mode -1)
-
-;隐藏滚动条
-(scroll-bar-mode -1)
 
 ;yes or no to y/n
 (fset 'yes-or-no-p 'y-or-n-p)
@@ -181,7 +50,7 @@
 (setq enable-recursive-minibuffers t)
 
 ;size of initial window
-(setq initial-frame-alist '( (width . 120) (height . 40)))
+;(setq initial-frame-alist '( (width . 120) (height . 40)))
 
 ;用一个很大的 kill ring. 这样防止我不小心删掉重要的东西
 (setq kill-ring-max 200)
@@ -204,7 +73,7 @@
 (setq show-paren-style 'parentheses)
 
 ;让 Emacs 可以直接打开和显示图片
-(auto-image-file-mode)
+;(auto-image-file-mode)
 
 ;进行语法加亮
 (global-font-lock-mode t)
@@ -216,7 +85,7 @@
 (mouse-avoidance-mode 'animate)
 
 ;设置有用的个人信息。这在很多地方有用
-(setq user-full-name "Xiao (Cosmo) Zhang")
+(setq user-full-name "Cosmo Zhang")
 (setq user-mail-address "cosmozhang1988@gmail.com")
 
 
